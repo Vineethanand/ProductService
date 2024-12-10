@@ -24,27 +24,28 @@ public class SelfProductService implements ProductService {
     }
 
     @Override
-    public ProductTitleAndDescription getProductById(Long id) throws ProductNotFoundException {
+    public Product getProductById(Long id) throws ProductNotFoundException {
 //        Optional<Product> product =  productRepo.findById(id);
 //        if(product.isEmpty())
 //            throw new ProductNotFoundException(101L, "Product with " + id + " not found");
 //        else
 //            return product.get();
-        Optional<ProductTitleAndDescription> productTitleAndDescription = productRepo.getProductTitleAndDescriptionById(id);
-        if (productTitleAndDescription.isPresent()) {
-            System.out.println(productTitleAndDescription.get());
-            return productTitleAndDescription.get();
+//        Optional<ProductTitleAndDescription> productTitleAndDescription = productRepo.getProductTitleAndDescriptionById(id);
+//        if (productTitleAndDescription.isPresent()) {
+//            System.out.println(productTitleAndDescription.get());
+//            return productTitleAndDescription.get();
             //ProductTitleAndDescription productTitleAndDescription1 =  productTitleAndDescription.get();
 
             //Product p = new Product();
             //p.setTitle(productTitleAndDescription1.getTitle());
             //p.setDescription(productTitleAndDescription1.getDescription());
             //return null;
-        }
-        else
-        {
-            throw new ProductNotFoundException(101L, "Product with " + id + " not found");
-        }
+//        }
+//        else
+//        {
+//            throw new ProductNotFoundException(101L, "Product with " + id + " not found");
+//        }
+        return productRepo.findById(id).get();
     }
 
     @Override

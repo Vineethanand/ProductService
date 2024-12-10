@@ -18,7 +18,7 @@ public interface ProductService {
 //    FakeStoreProduct createFakeStoreProduct(FakeStoreProduct product);
 //
 //    FakeStoreProduct updateFakeStoreProduct(Long id, FakeStoreProduct product);
-    ProductTitleAndDescription getProductById(Long id) throws ProductNotFoundException;
+    Product getProductById(Long id) throws ProductNotFoundException;
 
     Product createProduct(Product product);
 }
