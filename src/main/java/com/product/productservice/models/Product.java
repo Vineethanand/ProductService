@@ -13,6 +13,6 @@ public class Product extends BaseModel{
     String name;
     Double price;
     String description;
-    @ManyToOne(cascade=CascadeType.DETACH)
+    @ManyToOne(cascade=CascadeType.PERSIST)
     Category category;
 }

@@ -5,6 +5,8 @@ import com.product.productservice.models.FakeStoreProduct;
 import com.product.productservice.models.Product;
 import com.product.productservice.projections.ProductTitleAndDescription;
 import com.product.productservice.services.ProductService;
+import com.product.productservice.services.TokenService;
+import org.hibernate.cache.spi.access.UnknownAccessTypeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +18,11 @@ import java.util.List;
 public class ProductController {
 
     ProductService productService;
+    TokenService tokenService;
 
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService,
+                             TokenService tokenService) {
+        this.tokenService = tokenService;
         this.productService = productService;
     }
 
@@ -50,9 +55,17 @@ public class ProductController {
 //    }
 
     @GetMapping("{id}")
-    public ResponseEntity<Product> getProduct(@PathVariable Long id) throws ProductNotFoundException {
-        Product product = productService.getProductById(id);
-        return new ResponseEntity<>(product, HttpStatus.OK);
+    public ResponseEntity<Product> getProduct(
+            @RequestHeader("Token") String token,
+            @PathVariable Long id) throws ProductNotFoundException {
+
+        if(tokenService.validateToken(token)) {
+            Product product = productService.getProductById(id);
+            return new ResponseEntity<>(product, HttpStatus.OK);
+        }
+        else {
+            throw new UnknownAccessTypeException("User is not authorized");
+        }
     }
 
     @PostMapping
