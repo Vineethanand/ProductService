@@ -32,7 +32,8 @@ class ProductControllerTest {
         String token = RandomString.make(10);
         when(service.getProductById(productId)).thenReturn(product);
 
-        Product p = productController.getProduct(token, productId).getBody();
+        //Product p = productController.getProduct(token, productId).getBody();
+        Product p = productController.getProduct(productId).getBody();
 
         assertEquals("Test_Title", p.getTitle());
     }
